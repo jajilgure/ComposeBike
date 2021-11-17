@@ -202,15 +202,17 @@ class MainActivity : AppCompatActivity() {
 
         var destinationContent by remember { mutableStateOf(WindowContent.Splash) }
         when (destinationContent) {
-            WindowContent.Splash -> SplashWindowContent {
+            WindowContent.Splash -> SplashWindowContent(onReady = {
                 destinationContent = WindowContent.Bike
-            }
+            })
             WindowContent.Bike -> BikeWindowContent()
             WindowContent.Error -> ErrorWindowContent()
         }
 
-        //FIXME BikeContent()로 넘어가기 위한 리소스 로딩을, SplashWindowContent에 종속시키지 말고
-        //FIXME 여기에서 로딩하고 그 결과에 따라 BikeWindowContent()로 넘어가게 하자
+        //FIXME produceState
+        //FIXME BikeContent()로 넘어가기 위한 리소스 로딩과 State 변경의 책임을
+        //FIXME SplashWindowContent에 숨기지 말고 여기에서 하게하자
+        //FIXME (리소스 로딩에 대한 에러 처리는 덤)
     }
 
     @Composable
